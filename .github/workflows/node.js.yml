@@ -42,7 +42,7 @@ jobs:
     - name: generate coverage report
       run: npm test
     - name: log
-      run: echo ${{github.workspace}}/coverage/lcov.info
+      run: cat ${{github.workspace}}/coverage/lcov.info
     - name: publish code coverage
       uses: paambaati/codeclimate-action@v3.2.0
       env:
