@@ -26,17 +26,18 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-  coverage:
+  coverage:88
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [14.x]e
     steps:
-    - name: build coverage report
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd src
-    - run: npm test
+    - name: build coverage report
+      run: |
+       cd src
+       npm test
