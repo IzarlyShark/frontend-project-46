@@ -39,10 +39,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: install dependencies
       run: npm install
+    - name: generate coverage report
+      run: npm test
+    - name: log
+      run: echo ${{github.workspace}}/coverage/lcov.info
     - name: publish code coverage
       uses: paambaati/codeclimate-action@v3.2.0
       env:
         CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
       with:
-        coverageCommand: npm test
+        coverageLocation: ${{github.workspace}}/coverage/lcov.info:lcov
         debug: true
