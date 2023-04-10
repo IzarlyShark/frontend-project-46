@@ -10,7 +10,7 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixture__', f
 test('compare two files' , () => {
     let path1 = getFixturePath('file1.json');
     let path2 = getFixturePath('file2.json');
-    const expected = `{\n- follow: false\n  host: hexlet.io\n- proxy: 123.234.53.22\n- timeout: 50\n+ timeout: 20\n+ verbose: true\n}`;
+    const expected = `{\n  - follow: false\n    host: hexlet.io\n  - proxy: 123.234.53.22\n  - timeout: 50\n  + timeout: 20\n  + verbose: true\n}`;
     expect(genDiff(path1, path2)).toEqual(expected);      
 })
 
@@ -24,6 +24,6 @@ test('compare two files when file not found' , () => {
 test('compare two files when one file is empty' , () => {
     let path1 = getFixturePath('file1.json');
     let path2 = getFixturePath('empty.json');
-    const expected = `{\n- follow: false\n- host: hexlet.io\n- proxy: 123.234.53.22\n- timeout: 50\n}`;
+    const expected = `{\n  - follow: false\n  - host: hexlet.io\n  - proxy: 123.234.53.22\n  - timeout: 50\n}`;
     expect(genDiff(path1, path2)).toEqual(expected);  
 })

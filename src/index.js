@@ -16,16 +16,16 @@ const genDiff = (path1, path2) => {
     const sortedKeys = _.sortBy(keys);
     const diff = sortedKeys.flatMap((key) => {
         if (_.has(data1, key) && !_.has(data2, key)) {
-           return (`- ${key}: ${data1[key]}`);
+           return (`  - ${key}: ${data1[key]}`);
           }
         if (!_.has(data1, key) && _.has(data2, key)) {
-            return (`+ ${key}: ${data2[key]}`);
+            return (`  + ${key}: ${data2[key]}`);
         }
         if (_.has(data1, key) && _.has(data2, key) && data1[key] !== data2[key]) {
-            return (`- ${key}: ${data1[key]}\n+ ${key}: ${data2[key]}`);
+            return (`  - ${key}: ${data1[key]}\n  + ${key}: ${data2[key]}`);
         }
           if (data1[key] === data2[key]) {
-            return (`  ${key}: ${data1[key]}`);
+            return (`    ${key}: ${data1[key]}`);
         }
     })
     return (`{\n${diff.join('\n')}\n}`);
