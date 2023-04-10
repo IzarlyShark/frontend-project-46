@@ -31,8 +31,8 @@ jobs:
     env:
       CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
     with: 
-       coverageCommand: npm test -- --coverage --coverageProvider=v8
-       debug: true
+      coverageCommand: npm test -- --coverage --coverageProvider=v8
+      debug: true
 
   # coverage:
   #   runs-on: ubuntu-latest
