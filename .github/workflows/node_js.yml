@@ -30,7 +30,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    = name: install    
       run: make install
+    - name: lint
     - run: make lint
     - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v3.0.0
