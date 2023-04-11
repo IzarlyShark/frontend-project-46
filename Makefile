@@ -10,5 +10,5 @@ lint:
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 
-make test:
-	node --experimental-vm-modules node_modules/jest/bin/jest.js
+test:
+	npm test
