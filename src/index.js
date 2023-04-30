@@ -3,17 +3,19 @@ import fs from 'fs';
 import _ from 'lodash';
 // import { log } from 'console';
 import { parseJson, parsYaml } from './parsers.js'
-
+import stylish from './stylish.js';
 
 function compareObjects(obj1, obj2) {
     const result = {};
-    const keys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
-  
+    const keys = _.sortBy(Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)])))
+
     for (const key of keys) {
       if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
-        const comparedObj = compareObjects(obj1[key], obj2[key]);
+       
+        const comparedObj = compareObjects(obj1[key], obj2[key])
         if (Object.keys(comparedObj).length > 0) {
-          result[key] = comparedObj;
+          result[`  ${key}`] =  comparedObj;
+          console.log(key === 'common')
         }
       } else if (obj1[key] !== obj2[key]) {
         if (obj1[key] === undefined) {
@@ -24,8 +26,9 @@ function compareObjects(obj1, obj2) {
           result[`- ${key}`] = obj1[key];
           result[`+ ${key}`] = obj2[key];
         }
-      } else {
-        result[key] = obj1[key];
+      }
+       else {
+        result[`  ${key}`] = obj1[key];
       }
     }
   
@@ -44,8 +47,11 @@ const genDiff = (path1, path2) => {
     const json1 = path1.includes('.json') ? parseJson(path1) : parsYaml(path1);
     const json2 = path2.includes('.json') ? parseJson(path2) : parsYaml(path2);
     const result = compareObjects(json1, json2);
+
+    const stylishResult = stylish(result, 0)
+    console.log(stylishResult)
   
-    console.log(JSON.stringify(result, null, 2, function(key, value) {
+    console.log(JSON.stringify(stylishResult, null, 2, function(key, value) {
         if (typeof value === 'object' && value !== null) {
         return '[Object]';
         }
@@ -53,6 +59,7 @@ const genDiff = (path1, path2) => {
     }));
 };
     
+
 
 //     const obj = {}
 //     const keys = flatArr(data1, data2, obj)
