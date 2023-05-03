@@ -15,7 +15,6 @@ function compareObjects(obj1, obj2) {
         const comparedObj = compareObjects(obj1[key], obj2[key])
         if (Object.keys(comparedObj).length > 0) {
           result[`  ${key}`] =  comparedObj;
-          console.log(key === 'common')
         }
       } else if (obj1[key] !== obj2[key]) {
         if (obj1[key] === undefined) {
@@ -48,15 +47,16 @@ const genDiff = (path1, path2) => {
     const json2 = path2.includes('.json') ? parseJson(path2) : parsYaml(path2);
     const result = compareObjects(json1, json2);
 
-    const stylishResult = stylish(result, 0)
-    console.log(stylishResult)
-  
-    console.log(JSON.stringify(stylishResult, null, 2, function(key, value) {
-        if (typeof value === 'object' && value !== null) {
-        return '[Object]';
-        }
-        return value;
-    }));
+    const stylishResult = stylish(result, 1)
+    console.log(1,stylishResult)
+    // const str = JSON.stringify(stylishResult, null, 2, function(key, value) {
+    //     if (typeof(value) === 'object' && value !== null) {
+    //     return '[Object]';
+    //     }
+
+    //     return value;
+    // });
+    //console.log(str)
 };
     
 
